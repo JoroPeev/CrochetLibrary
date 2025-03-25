@@ -21,7 +21,7 @@ namespace CrochetLibrary.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CrochetLibrary.Models.Toy", b =>
+            modelBuilder.Entity("Toy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,13 +29,20 @@ namespace CrochetLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Colors")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("Hook")
-                        .HasColumnType("int");
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -46,19 +53,64 @@ namespace CrochetLibrary.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("float(10)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Yarn")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Toys");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Colors = "Brown, Beige, Cream",
+                            Description = "Soft and cuddly hand-crocheted teddy bear with embroidered details. Perfect for snuggling and as a cherished keepsake.",
+                            ImageUrl = "https://example.com/classic-teddy-bear.jpg",
+                            Name = "Classic Teddy Bear",
+                            Price = 24.989999999999998,
+                            Stock = 20
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Colors = "White, Pink, Lavender",
+                            Description = "Adorable crochet bunny with long floppy ears and a sweet embroidered face. Comes with removable dress.",
+                            ImageUrl = "https://example.com/amigurumi-bunny.jpg",
+                            Name = "Amigurumi Bunny",
+                            Price = 29.5,
+                            Stock = 15
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Colors = "Green, Blue, Orange",
+                            Description = "Playful crochet dinosaur in vibrant colors. A perfect companion for young adventurers and dinosaur enthusiasts.",
+                            ImageUrl = "https://example.com/dinosaur-plushie.jpg",
+                            Name = "Dinosaur Plushie",
+                            Price = 26.75,
+                            Stock = 18
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Colors = "White, Rainbow",
+                            Description = "Magical hand-crocheted unicorn with a shimmering mane and tail. Brings imagination and wonder to playtime.",
+                            ImageUrl = "https://example.com/rainbow-unicorn.jpg",
+                            Name = "Rainbow Unicorn",
+                            Price = 34.990000000000002,
+                            Stock = 12
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Colors = "Blue, Teal, Purple",
+                            Description = "Soft, huggable octopus with multiple legs in gradient colors. Great for sensory play and comfort.",
+                            ImageUrl = "https://example.com/octopus-buddy.jpg",
+                            Name = "Octopus Cuddle Buddy",
+                            Price = 22.5,
+                            Stock = 25
+                        });
                 });
 #pragma warning restore 612, 618
         }
