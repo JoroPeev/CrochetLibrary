@@ -19,12 +19,10 @@ public class CrochetDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configure Price precision
         modelBuilder.Entity<Toy>()
             .Property(t => t.Price)
             .HasPrecision(10, 2);
 
-        // Seed initial toys with more detailed data
         modelBuilder.Entity<Toy>().HasData(
             new Toy
             {
