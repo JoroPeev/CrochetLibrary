@@ -1,4 +1,5 @@
 using CrochetLibrary.Data;
+using CrochetLibrary.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<CrochetDbContext>(options =>
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
 
 
 if (app.Environment.IsDevelopment())
