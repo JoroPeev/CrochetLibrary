@@ -1,6 +1,5 @@
-﻿using CrochetLibrary.Data;
+﻿using CrochetLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CrochetLibrary.Controllers
 {
@@ -8,66 +7,42 @@ namespace CrochetLibrary.Controllers
     [ApiController]
     public class ToysController : ControllerBase
     {
-        private readonly CrochetDbContext _context;
+        private readonly ToyService _toyService;
 
-        public ToysController(CrochetDbContext context)
+        public ToysController(ToyService toyService)
         {
-            _context = context;
+            _toyService = toyService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Toy>>> GetToys()
         {
-            return await _context.Toys.ToListAsync();
+            return Ok(await _toyService.GetToysAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Toy>> GetToy(int id)
         {
-            var toy = await _context.Toys.FindAsync(id);
-
+            var toy = await _toyService.GetToyByIdAsync(id);
             if (toy == null)
-            {
                 return NotFound();
-            }
 
-            return toy;
+            return Ok(toy);
         }
 
         [HttpPost]
         public async Task<ActionResult<Toy>> PostToy(Toy toy)
         {
-            _context.Toys.Add(toy);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetToy), new { id = toy.Id }, toy);
+            var createdToy = await _toyService.AddToyAsync(toy);
+            return CreatedAtAction(nameof(GetToy), new { id = createdToy.Id }, createdToy);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutToy(int id, Toy toy)
         {
-            if (id != toy.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(toy).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ToyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var updated = await _toyService.UpdateToyAsync(id, toy);
+            if (!updated)
+                return NotFound();
 
             return NoContent();
         }
@@ -75,21 +50,11 @@ namespace CrochetLibrary.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteToy(int id)
         {
-            var toy = await _context.Toys.FindAsync(id);
-            if (toy == null)
-            {
+            var deleted = await _toyService.DeleteToyAsync(id);
+            if (!deleted)
                 return NotFound();
-            }
-
-            _context.Toys.Remove(toy);
-            await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool ToyExists(int id)
-        {
-            return _context.Toys.Any(e => e.Id == id);
         }
     }
 }
