@@ -1,4 +1,5 @@
 ﻿using CrochetLibrary.Data;
+using CrochetLibrary.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrochetLibrary.Repositories
