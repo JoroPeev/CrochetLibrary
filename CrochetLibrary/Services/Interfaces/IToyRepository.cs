@@ -1,4 +1,4 @@
-﻿namespace CrochetLibrary.Repositories
+﻿namespace CrochetLibrary.Services.Interfaces
 {
     public interface IToyRepository
     {
