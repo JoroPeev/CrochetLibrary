@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CrochetLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 namespace CrochetLibrary.Data;
 
@@ -7,6 +8,7 @@ public class CrochetDbContext : DbContext
     public CrochetDbContext(DbContextOptions<CrochetDbContext> options) : base(options) { }
 
     public DbSet<Toy> Toys { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
