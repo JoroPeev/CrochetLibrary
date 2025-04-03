@@ -1,5 +1,7 @@
 using CrochetLibrary.Data;
 using CrochetLibrary.Middleware;
+using CrochetLibrary.Services.Auth;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<CrochetDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<CrochetDbContext>()
+    .AddDefaultTokenProviders();
+
+// Register Authentication Service
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 var app = builder.Build();
