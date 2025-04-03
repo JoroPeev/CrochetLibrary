@@ -1,9 +1,11 @@
 ﻿using CrochetLibrary.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 namespace CrochetLibrary.Data;
 
-public class CrochetDbContext : DbContext
+public class CrochetDbContext : IdentityDbContext<IdentityUser>
 {
     public CrochetDbContext(DbContextOptions<CrochetDbContext> options) : base(options) { }
 
