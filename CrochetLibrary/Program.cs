@@ -18,7 +18,6 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<CrochetDbContext>()
     .AddDefaultTokenProviders();
 
-// Register Authentication Service
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 
