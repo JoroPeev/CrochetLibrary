@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 namespace CrochetLibrary.Data;
 
 public class CrochetDbContext : IdentityDbContext<IdentityUser>
@@ -11,13 +10,6 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
 
     public DbSet<Toy> Toys { get; set; }
     public DbSet<Order> Orders { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder
-            .ConfigureWarnings(warnings => warnings
-                .Ignore(RelationalEventId.PendingModelChangesWarning));
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
