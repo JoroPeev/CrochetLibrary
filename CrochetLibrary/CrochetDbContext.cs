@@ -17,7 +17,7 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<Toy>()
             .Property(t => t.Price)
-            .HasPrecision(10, 2);
+            .HasPrecision(2, 2);
 
         modelBuilder.Entity<Toy>().HasData(
             new Toy
