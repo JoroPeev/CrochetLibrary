@@ -1,6 +1,6 @@
 ﻿using CrochetLibrary.Data;
 using CrochetLibrary.Middleware;
-using CrochetLibrary.Services; // Assuming ToyService is in this namespace
+using CrochetLibrary.Services;
 using CrochetLibrary.Services.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
