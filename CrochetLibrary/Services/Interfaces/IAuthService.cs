@@ -6,7 +6,7 @@ namespace CrochetLibrary.Services.Auth
     public interface IAuthService
     {
         Task<IdentityResult> RegisterAsync(RegisterModel model);
-        Task<bool> LoginAsync(LoginModel model);
+        Task<string?> LoginAsync(LoginModel model);
         Task<bool> AddAdminRoleAsync(string email);
     }
 }

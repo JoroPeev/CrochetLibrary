@@ -1,5 +1,9 @@
 ﻿using CrochetLibrary.Models.Auth;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace CrochetLibrary.Services.Auth
 {
@@ -8,14 +12,17 @@ namespace CrochetLibrary.Services.Auth
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IConfiguration _configuration;
 
         public AuthService(UserManager<IdentityUser> userManager,
                            SignInManager<IdentityUser> signInManager,
-                           RoleManager<IdentityRole> roleManager)
+                           RoleManager<IdentityRole> roleManager,
+                           IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _configuration = configuration;
         }
 
         public async Task<IdentityResult> RegisterAsync(RegisterModel model)
@@ -24,11 +31,31 @@ namespace CrochetLibrary.Services.Auth
             return await _userManager.CreateAsync(user, model.Password);
         }
 
-        public async Task<bool> LoginAsync(LoginModel model)
+        public async Task<string?> LoginAsync(LoginModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-            return result.Succeeded;
+            var user = await _userManager.FindByNameAsync(model.Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                var claims = new[]
+                {
+            new Claim(ClaimTypes.Name, user.Email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var token = new JwtSecurityToken(
+                    expires: DateTime.UtcNow.AddHours(1),
+                    claims: claims,
+                    signingCredentials: creds
+                );
+
+                return new JwtSecurityTokenHandler().WriteToken(token);
+            }
+
+            return null;
         }
+
 
         public async Task<bool> AddAdminRoleAsync(string email)
         {
