@@ -28,10 +28,10 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
-        bool success = await _authService.LoginAsync(model);
-        if (success)
+        var token = await _authService.LoginAsync(model);
+        if (token != null)
         {
-            return Ok(new { message = "Login successful" });
+            return Ok(new { message = "Login successful", token });
         }
         return Unauthorized();
     }
