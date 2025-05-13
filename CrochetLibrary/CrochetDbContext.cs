@@ -10,7 +10,7 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
 
     public DbSet<Toy> Toys { get; set; }
     public DbSet<Order> Orders { get; set; }
-
+    public DbSet<CustomerRequest> Requests { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
