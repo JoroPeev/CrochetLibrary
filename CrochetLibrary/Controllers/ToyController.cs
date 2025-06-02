@@ -20,8 +20,8 @@ namespace CrochetLibrary.Controllers
             return Ok(await _toyService.GetToysAsync());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Toy>> GetToy(int id)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<Toy>> GetToy([FromRoute] Guid id)
         {
             var toy = await _toyService.GetToyByIdAsync(id);
             if (toy == null)
@@ -31,14 +31,14 @@ namespace CrochetLibrary.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Toy>> PostToy(Toy toy)
+        public async Task<ActionResult<Toy>> PostToy([FromBody] Toy toy)
         {
             var createdToy = await _toyService.AddToyAsync(toy);
             return CreatedAtAction(nameof(GetToy), new { id = createdToy.Id }, createdToy);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutToy(int id, Toy toy)
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> PutToy([FromRoute] Guid id, [FromBody] Toy toy)
         {
             var updated = await _toyService.UpdateToyAsync(id, toy);
             if (!updated)
@@ -47,8 +47,8 @@ namespace CrochetLibrary.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteToy(int id)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteToy([FromRoute] Guid id)
         {
             var deleted = await _toyService.DeleteToyAsync(id);
             if (!deleted)
