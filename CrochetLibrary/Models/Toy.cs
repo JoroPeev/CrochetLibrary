@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CrochetLibrary.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Toy
 {
     [Key]
-    public int Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
     [MaxLength(100)]
@@ -17,13 +20,20 @@ public class Toy
     [Range(0.01, 10000)]
     public double Price { get; set; }
 
-    [MaxLength(500)]
-    public string ImageUrl { get; set; } = string.Empty;
-
     [MaxLength(200)]
     public string Colors { get; set; } = "Red, Blue, Green";
 
     [Range(0, 1000)]
     public int Stock { get; set; }
 
+    public virtual ICollection<ToyImage> Images { get; set; } = new List<ToyImage>();
+
+    [NotMapped]
+    public string PrimaryImageUrl => Images?.FirstOrDefault(i => i.IsPrimary)?.ImageUrl
+                                   ?? Images?.OrderBy(i => i.DisplayOrder).FirstOrDefault()?.ImageUrl
+                                   ?? string.Empty;
+
+    [NotMapped]
+    public List<string> ImageUrls => Images?.OrderBy(i => i.DisplayOrder).Select(i => i.ImageUrl).ToList()
+                                   ?? new List<string>();
 }
