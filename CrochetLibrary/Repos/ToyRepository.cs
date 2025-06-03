@@ -15,16 +15,21 @@ namespace CrochetLibrary.Repositories
 
         public async Task<IEnumerable<Toy>> GetAllAsync()
         {
-            return await _context.Toys.ToListAsync();
+            return await _context.Toys
+                .Include(t => t.Images.OrderBy(i => i.DisplayOrder))
+                .ToListAsync();
         }
 
-        public async Task<Toy?> GetByIdAsync(int id)
+        public async Task<Toy?> GetByIdAsync(Guid id)
         {
-            return await _context.Toys.FindAsync(id);
+            return await _context.Toys
+                .Include(t => t.Images.OrderBy(i => i.DisplayOrder))
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
 
         public async Task<Toy> AddAsync(Toy toy)
         {
+            toy.Id = Guid.NewGuid();
             _context.Toys.Add(toy);
             await _context.SaveChangesAsync();
             return toy;
@@ -44,7 +49,7 @@ namespace CrochetLibrary.Repositories
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var toy = await _context.Toys.FindAsync(id);
             if (toy == null) return false;
@@ -52,6 +57,11 @@ namespace CrochetLibrary.Repositories
             _context.Toys.Remove(toy);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            return await _context.Toys.AnyAsync(t => t.Id == id);
         }
     }
 }
