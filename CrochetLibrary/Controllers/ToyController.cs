@@ -1,4 +1,5 @@
-﻿using CrochetLibrary.Services;
+﻿using CrochetLibrary.Models;
+using CrochetLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrochetLibrary.Controllers
@@ -56,5 +57,16 @@ namespace CrochetLibrary.Controllers
 
             return NoContent();
         }
+        [HttpGet("{id:guid}/images")]
+        public async Task<ActionResult<IEnumerable<ToyImage>>> GetImages([FromRoute] Guid id)
+        {
+            var images = await _toyService.GetToyImagesAsync(id);
+
+            if (images == null || !images.Any())
+                return NotFound($"No images found for toy with ID: {id}");
+
+            return Ok(images);
+        }
+
     }
 }
