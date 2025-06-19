@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrochetLibrary.Migrations
 {
     [DbContext(typeof(CrochetDbContext))]
-    [Migration("20250603144718_ToyGuidMultipleImages")]
-    partial class ToyGuidMultipleImages
+    [Migration("20250619151927_RequestModelFix")]
+    partial class RequestModelFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,108 +24,6 @@ namespace CrochetLibrary.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CrochetLibrary.Models.CustomerRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ToyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Requests");
-                });
-
-            modelBuilder.Entity("CrochetLibrary.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PaymentMethod")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("CrochetLibrary.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItem");
-                });
 
             modelBuilder.Entity("CrochetLibrary.Models.ToyImage", b =>
                 {
@@ -168,154 +66,187 @@ namespace CrochetLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("71d64ce1-f26b-48d2-8c56-4f3dbe2f0985"),
+                            Id = new Guid("4089cd30-dd3c-4bc5-b129-9932643781d7"),
                             AltText = "Classic Teddy Bear - Front View",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2282),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4067),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/teddy-bear-1.jpg",
                             IsPrimary = true,
-                            ToyId = new Guid("b90986cf-d94f-467c-bb74-6da1917333d8")
+                            ToyId = new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c")
                         },
                         new
                         {
-                            Id = new Guid("28c8054c-843d-4f25-80f2-4a63fa0ede4c"),
+                            Id = new Guid("aec81dda-d7a9-4899-91f2-8196a2117de2"),
                             AltText = "Classic Teddy Bear - Side View",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2295),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4075),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/teddy-bear-2.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("b90986cf-d94f-467c-bb74-6da1917333d8")
+                            ToyId = new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c")
                         },
                         new
                         {
-                            Id = new Guid("373a40b3-f22c-4b43-b2e8-39b3fb732f6d"),
+                            Id = new Guid("c9d5436d-a3fe-4389-bcbf-c1e34d8168c2"),
                             AltText = "Classic Teddy Bear - Back View",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2299),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4085),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/teddy-bear-3.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("b90986cf-d94f-467c-bb74-6da1917333d8")
+                            ToyId = new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c")
                         },
                         new
                         {
-                            Id = new Guid("f6ebccfc-b5b2-4151-961f-6a1aa7e306ae"),
+                            Id = new Guid("f5ed5c0f-4420-4ffb-9673-d3d9f6c0ca4a"),
                             AltText = "Amigurumi Bunny - With Dress",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2302),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4088),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/bunny-1.jpg",
                             IsPrimary = true,
-                            ToyId = new Guid("fcc5b506-08e8-4efa-b874-5dc9e7408ae5")
+                            ToyId = new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846")
                         },
                         new
                         {
-                            Id = new Guid("ef78b5a1-93bd-4f0d-9271-b736398eea3f"),
+                            Id = new Guid("591627a4-4879-42c6-816a-48de32d68fce"),
                             AltText = "Amigurumi Bunny - Without Dress",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2305),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4091),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/bunny-2.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("fcc5b506-08e8-4efa-b874-5dc9e7408ae5")
+                            ToyId = new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846")
                         },
                         new
                         {
-                            Id = new Guid("1acbefc2-b577-42c7-b81c-b6a628262d57"),
+                            Id = new Guid("0e94003a-53fe-4533-8ea8-17f76edc18b5"),
                             AltText = "Amigurumi Bunny - Close-up Face",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2310),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4094),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/bunny-3.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("fcc5b506-08e8-4efa-b874-5dc9e7408ae5")
+                            ToyId = new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846")
                         },
                         new
                         {
-                            Id = new Guid("d343d568-83c0-4a3d-9a88-9818394226ed"),
+                            Id = new Guid("2e6a6d21-d91a-484b-b37b-d70503572d2e"),
                             AltText = "Dinosaur Plushie - Green Version",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2313),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4100),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/dinosaur-1.jpg",
                             IsPrimary = true,
-                            ToyId = new Guid("41fb5751-35e6-4878-924b-16200b403138")
+                            ToyId = new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273")
                         },
                         new
                         {
-                            Id = new Guid("bbaae861-8be9-4075-bb38-1dde85a7d30b"),
+                            Id = new Guid("3ac64125-7eec-4682-aae0-126c173e1797"),
                             AltText = "Dinosaur Plushie - Blue Version",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2316),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4103),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/dinosaur-2.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("41fb5751-35e6-4878-924b-16200b403138")
+                            ToyId = new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273")
                         },
                         new
                         {
-                            Id = new Guid("7584906d-caa6-4448-b64d-29d147526674"),
+                            Id = new Guid("721604c7-4e11-45f0-938a-182670425ebd"),
                             AltText = "Dinosaur Plushie - Orange Version",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2319),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4105),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/dinosaur-3.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("41fb5751-35e6-4878-924b-16200b403138")
+                            ToyId = new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273")
                         },
                         new
                         {
-                            Id = new Guid("60fab9ea-d6f2-4530-9746-20bdd7822b95"),
+                            Id = new Guid("9a0dec0c-3a3a-4e5a-a0aa-e3b7e228f7e5"),
                             AltText = "Rainbow Unicorn - Full Body",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2324),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4108),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/unicorn-1.jpg",
                             IsPrimary = true,
-                            ToyId = new Guid("6738a259-ef84-4919-b219-49abdc606487")
+                            ToyId = new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec")
                         },
                         new
                         {
-                            Id = new Guid("038f66be-267a-4e97-b91e-36e8581f9c98"),
+                            Id = new Guid("9dfdf529-d89a-4fa4-bc7c-bbab573989d3"),
                             AltText = "Rainbow Unicorn - Mane Detail",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2326),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4114),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/unicorn-2.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("6738a259-ef84-4919-b219-49abdc606487")
+                            ToyId = new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec")
                         },
                         new
                         {
-                            Id = new Guid("eb7e40b2-7402-4dd6-b2b2-68ec8a86832d"),
+                            Id = new Guid("fedb71d7-be33-4fab-abf0-394b28973790"),
                             AltText = "Rainbow Unicorn - Horn Close-up",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2329),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4116),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/unicorn-3.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("6738a259-ef84-4919-b219-49abdc606487")
+                            ToyId = new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec")
                         },
                         new
                         {
-                            Id = new Guid("00520e36-0ddc-4b1c-bcda-fc61b2fdcaf3"),
+                            Id = new Guid("42b5f252-09e4-4a43-a0af-3a2315de340f"),
                             AltText = "Octopus Cuddle Buddy - Full View",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2332),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4119),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/octopus-1.jpg",
                             IsPrimary = true,
-                            ToyId = new Guid("58bf0833-b3ee-43c1-ab91-5a6cbe89dac8")
+                            ToyId = new Guid("dfca9479-fac6-4501-a3f4-1dce69130175")
                         },
                         new
                         {
-                            Id = new Guid("2cc0c1e1-bdbd-4009-a428-e8318a517baf"),
+                            Id = new Guid("1ee7283c-20b9-4fa4-875e-4a8b13e1db6c"),
                             AltText = "Octopus Cuddle Buddy - Tentacles Detail",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2337),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4122),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/octopus-2.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("58bf0833-b3ee-43c1-ab91-5a6cbe89dac8")
+                            ToyId = new Guid("dfca9479-fac6-4501-a3f4-1dce69130175")
                         },
                         new
                         {
-                            Id = new Guid("dbdaceef-14c5-46ee-a31d-d21b3b84dc65"),
+                            Id = new Guid("91921b8d-df13-4ea4-a41a-99b50ae7ac3b"),
                             AltText = "Octopus Cuddle Buddy - Face Close-up",
-                            CreatedAt = new DateTime(2025, 6, 3, 14, 47, 17, 991, DateTimeKind.Utc).AddTicks(2340),
+                            CreatedAt = new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4127),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/octopus-3.jpg",
                             IsPrimary = false,
-                            ToyId = new Guid("58bf0833-b3ee-43c1-ab91-5a6cbe89dac8")
+                            ToyId = new Guid("dfca9479-fac6-4501-a3f4-1dce69130175")
                         });
+                });
+
+            modelBuilder.Entity("CustomerRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ToyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ToyId");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -551,7 +482,7 @@ namespace CrochetLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b90986cf-d94f-467c-bb74-6da1917333d8"),
+                            Id = new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c"),
                             Colors = "Brown, Beige, Cream",
                             Description = "Soft and cuddly hand-crocheted teddy bear...",
                             Name = "Classic Teddy Bear",
@@ -560,7 +491,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fcc5b506-08e8-4efa-b874-5dc9e7408ae5"),
+                            Id = new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846"),
                             Colors = "White, Pink, Lavender",
                             Description = "Adorable crochet bunny...",
                             Name = "Amigurumi Bunny",
@@ -569,7 +500,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("41fb5751-35e6-4878-924b-16200b403138"),
+                            Id = new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273"),
                             Colors = "Green, Blue, Orange",
                             Description = "Playful crochet dinosaur...",
                             Name = "Dinosaur Plushie",
@@ -578,7 +509,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6738a259-ef84-4919-b219-49abdc606487"),
+                            Id = new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec"),
                             Colors = "White, Rainbow",
                             Description = "Magical hand-crocheted unicorn...",
                             Name = "Rainbow Unicorn",
@@ -587,7 +518,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("58bf0833-b3ee-43c1-ab91-5a6cbe89dac8"),
+                            Id = new Guid("dfca9479-fac6-4501-a3f4-1dce69130175"),
                             Colors = "Blue, Teal, Purple",
                             Description = "Soft, huggable octopus...",
                             Name = "Octopus Cuddle Buddy",
@@ -596,17 +527,21 @@ namespace CrochetLibrary.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CrochetLibrary.Models.OrderItem", b =>
-                {
-                    b.HasOne("CrochetLibrary.Models.Order", null)
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId");
-                });
-
             modelBuilder.Entity("CrochetLibrary.Models.ToyImage", b =>
                 {
                     b.HasOne("Toy", "Toy")
                         .WithMany("Images")
+                        .HasForeignKey("ToyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Toy");
+                });
+
+            modelBuilder.Entity("CustomerRequest", b =>
+                {
+                    b.HasOne("Toy", "Toy")
+                        .WithMany()
                         .HasForeignKey("ToyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -663,11 +598,6 @@ namespace CrochetLibrary.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CrochetLibrary.Models.Order", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Toy", b =>
