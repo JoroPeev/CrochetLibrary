@@ -1,24 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrochetLibrary.Models
+public class CustomerRequest
 {
-    public class CustomerRequest
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        [Required]
-        public int ToyId { get; set; }
+    [Required]
+    public Guid ToyId { get; set; }
 
-        [Required]
-        public string Name { get; set; } = string.Empty;
+    public virtual Toy? Toy { get; set; }
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } = string.Empty;
+    [Required]
+    public string Name { get; set; } = string.Empty;
 
-        public string Message { get; set; } = string.Empty;
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; } = string.Empty;
 
-        [Required]
-        public DateTime DueDate { get; set; }
-    }
+    public string Message { get; set; } = string.Empty;
+
+    [Required]
+    public DateTime DueDate { get; set; }
 }
