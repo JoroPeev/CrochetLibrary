@@ -21,11 +21,17 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
             .Property(t => t.Price)
             .HasPrecision(18, 2);
 
+        modelBuilder.Entity<CustomerRequest>()
+        .HasOne(cr => cr.Toy)
+        .WithMany()
+        .HasForeignKey(cr => cr.ToyId)
+        .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<ToyImage>()
-            .HasOne(ti => ti.Toy)
-            .WithMany(t => t.Images)
-            .HasForeignKey(ti => ti.ToyId)
-            .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(ti => ti.Toy)
+                .WithMany(t => t.Images)
+                .HasForeignKey(ti => ti.ToyId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<ToyImage>()
             .HasIndex(ti => new { ti.ToyId, ti.IsPrimary })
