@@ -1,4 +1,5 @@
 ﻿using CrochetLibrary.Data;
+using CrochetLibrary.DataTransferObject;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,12 +15,22 @@ public class RequestsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostRequest([FromBody] CustomerRequest request)
+    public async Task<IActionResult> PostRequest([FromBody] CustomerRequestDTO requestDto)
     {
-        _context.Requests.Add(request);
+        var customerRequest = new CustomerRequest
+        {
+            ToyName = requestDto.ToyName,
+            Name = requestDto.Name,
+            Email = requestDto.Email,
+            Message = requestDto.Message,
+            DueDate = requestDto.DueDate
+        };
+
+        _context.Requests.Add(customerRequest);
         await _context.SaveChangesAsync();
         return Ok();
     }
+
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CustomerRequest>>> GetRequests()
@@ -28,12 +39,4 @@ public class RequestsController : ControllerBase
         return Ok(requests);
     }
 
-    [HttpGet("with-toys")]
-    public async Task<ActionResult<IEnumerable<CustomerRequest>>> GetRequestsWithToys()
-    {
-        var requests = await _context.Requests
-                                     .Include(r => r.Toy)
-                                     .ToListAsync();
-        return Ok(requests);
-    }
 }
