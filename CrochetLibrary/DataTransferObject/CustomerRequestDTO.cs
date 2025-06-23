@@ -7,8 +7,7 @@ namespace CrochetLibrary.DataTransferObject
         public int Id { get; set; }
 
         [Required]
-        public Guid ToyId { get; set; }
-
+        public string ToyName { get; set; } = string.Empty;
         [Required]
         public string Name { get; set; } = string.Empty;
 
