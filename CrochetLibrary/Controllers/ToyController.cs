@@ -8,9 +8,9 @@ namespace CrochetLibrary.Controllers
     [ApiController]
     public class ToysController : ControllerBase
     {
-        private readonly ToyService _toyService;
+        private readonly IToyService _toyService;
 
-        public ToysController(ToyService toyService)
+        public ToysController(IToyService toyService)
         {
             _toyService = toyService;
         }
@@ -57,6 +57,7 @@ namespace CrochetLibrary.Controllers
 
             return NoContent();
         }
+
         [HttpGet("{id:guid}/images")]
         public async Task<ActionResult<IEnumerable<ToyImage>>> GetImages([FromRoute] Guid id)
         {
@@ -67,6 +68,5 @@ namespace CrochetLibrary.Controllers
 
             return Ok(images);
         }
-
     }
 }
