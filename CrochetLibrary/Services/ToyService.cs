@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrochetLibrary.Services
 {
-    public class ToyService
+    public class ToyService : IToyService
     {
         private readonly CrochetDbContext _context;
 
@@ -26,10 +26,9 @@ namespace CrochetLibrary.Services
 
         public async Task<Toy?> GetToyByIdAsync(Guid id)
         {
-            return await _context.Toys
-                .Include(t => t.Images.OrderBy(i => i.DisplayOrder))
-                .FirstOrDefaultAsync(t => t.Id == id);
+            return await _context.Toys.FirstOrDefaultAsync(t => t.Id == id);
         }
+
 
         public async Task<Toy?> GetToyByIdBasicAsync(Guid id)
         {
