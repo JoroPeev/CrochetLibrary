@@ -39,4 +39,19 @@ public class RequestsController : ControllerBase
         return Ok(requests);
     }
 
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteRequest(int id)
+    {
+        var request = await _context.Requests.FindAsync(id);
+
+        if (request == null)
+        {
+            return NotFound();
+        }
+
+        _context.Requests.Remove(request);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
