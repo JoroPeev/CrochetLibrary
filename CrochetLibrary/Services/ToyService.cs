@@ -71,8 +71,6 @@ namespace CrochetLibrary.Services
                 ToyId = toyId,
                 ImageUrl = url,
                 DisplayOrder = existingImagesCount + index + 1,
-                IsPrimary = existingImagesCount == 0 && index == 0,
-                AltText = $"Toy image {existingImagesCount + index + 1}"
             }).ToList();
 
             _context.ToyImages.AddRange(images);
@@ -126,8 +124,6 @@ namespace CrochetLibrary.Services
                         ToyId = id,
                         ImageUrl = url,
                         DisplayOrder = index + 1,
-                        IsPrimary = index == 0,
-                        AltText = $"{toy.Name} image {index + 1}"
                     }).ToList();
 
                     _context.ToyImages.AddRange(images);
@@ -172,10 +168,6 @@ namespace CrochetLibrary.Services
             if (!allImages.Any(i => i.Id == imageId))
                 return false;
 
-            foreach (var img in allImages)
-            {
-                img.IsPrimary = img.Id == imageId;
-            }
 
             await _context.SaveChangesAsync();
             return true;
@@ -187,18 +179,10 @@ namespace CrochetLibrary.Services
             if (image is null)
                 return false;
 
-            if (image.IsPrimary)
-            {
-                var nextImage = await _context.ToyImages
-                    .Where(ti => ti.ToyId == image.ToyId && ti.Id != imageId)
-                    .OrderBy(ti => ti.DisplayOrder)
-                    .FirstOrDefaultAsync();
-
-                if (nextImage is not null)
-                {
-                    nextImage.IsPrimary = true;
-                }
-            }
+            var nextImage = await _context.ToyImages
+                .Where(ti => ti.ToyId == image.ToyId && ti.Id != imageId)
+                .OrderBy(ti => ti.DisplayOrder)
+                .FirstOrDefaultAsync();
 
             _context.ToyImages.Remove(image);
             await _context.SaveChangesAsync();
@@ -238,16 +222,8 @@ namespace CrochetLibrary.Services
                 return await GetToysAsync();
 
             return await _context.Toys
-                .Include(t => t.Images.Where(i => i.IsPrimary).Take(1))
+                .Include(t => t.Images.Take(1))
                 .Where(t => t.Name.Contains(searchTerm) || t.Description.Contains(searchTerm))
-                .ToListAsync();
-        }
-
-        public async Task<List<Toy>> GetToysInStockAsync()
-        {
-            return await _context.Toys
-                .Include(t => t.Images.Where(i => i.IsPrimary).Take(1))
-                .Where(t => t.Stock > 0)
                 .ToListAsync();
         }
 

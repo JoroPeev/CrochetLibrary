@@ -19,7 +19,6 @@ namespace CrochetLibrary.Services
         Task<bool> UpdateImageOrderAsync(Guid toyId, List<Guid> imageIdsInOrder);
         Task<List<ToyImage>> GetToyImagesAsync(Guid toyId);
         Task<List<Toy>> SearchToysAsync(string searchTerm);
-        Task<List<Toy>> GetToysInStockAsync();
         Task<object> GetToyStatisticsAsync();
     }
 }
