@@ -13,15 +13,8 @@ namespace CrochetLibrary.Models
         [MaxLength(500)]
         public string ImageUrl { get; set; } = string.Empty;
 
-        [MaxLength(100)]
-        public string AltText { get; set; } = string.Empty;
-
         [Range(0, 100)]
         public int DisplayOrder { get; set; } = 0;
-
-        public bool IsPrimary { get; set; } = false;
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [Required]
         public Guid ToyId { get; set; }

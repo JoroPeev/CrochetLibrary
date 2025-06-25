@@ -62,11 +62,8 @@ namespace CrochetLibrary.Controllers
         public async Task<ActionResult<IEnumerable<ToyImage>>> GetImages([FromRoute] Guid id)
         {
             var images = await _toyService.GetToyImagesAsync(id);
-
-            if (images == null || !images.Any())
-                return NotFound($"No images found for toy with ID: {id}");
-
-            return Ok(images);
+            return Ok(images ?? new List<ToyImage>());
         }
+
     }
 }

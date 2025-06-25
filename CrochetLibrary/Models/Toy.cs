@@ -29,11 +29,6 @@ public class Toy
     public virtual ICollection<ToyImage> Images { get; set; } = new List<ToyImage>();
 
     [NotMapped]
-    public string PrimaryImageUrl => Images?.FirstOrDefault(i => i.IsPrimary)?.ImageUrl
-                                   ?? Images?.OrderBy(i => i.DisplayOrder).FirstOrDefault()?.ImageUrl
-                                   ?? string.Empty;
-
-    [NotMapped]
     public List<string> ImageUrls => Images?.OrderBy(i => i.DisplayOrder).Select(i => i.ImageUrl).ToList()
                                    ?? new List<string>();
 }
