@@ -28,11 +28,6 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
                 .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<ToyImage>()
-            .HasIndex(ti => new { ti.ToyId, ti.IsPrimary })
-            .HasFilter("[IsPrimary] = 1")
-            .IsUnique();
-
-        modelBuilder.Entity<ToyImage>()
             .HasIndex(ti => new { ti.ToyId, ti.DisplayOrder });
 
         var toy1Id = Guid.NewGuid();
@@ -51,25 +46,25 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
 
         // Seed ToyImages
         modelBuilder.Entity<ToyImage>().HasData(
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-1.jpg", AltText = "Classic Teddy Bear - Front View", DisplayOrder = 1, IsPrimary = true },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-2.jpg", AltText = "Classic Teddy Bear - Side View", DisplayOrder = 2, IsPrimary = false },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-3.jpg", AltText = "Classic Teddy Bear - Back View", DisplayOrder = 3, IsPrimary = false },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-1.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-3.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-1.jpg", AltText = "Amigurumi Bunny - With Dress", DisplayOrder = 1, IsPrimary = true },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-2.jpg", AltText = "Amigurumi Bunny - Without Dress", DisplayOrder = 2, IsPrimary = false },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-3.jpg", AltText = "Amigurumi Bunny - Close-up Face", DisplayOrder = 3, IsPrimary = false },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-1.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-3.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-1.jpg", AltText = "Dinosaur Plushie - Green Version", DisplayOrder = 1, IsPrimary = true },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-2.jpg", AltText = "Dinosaur Plushie - Blue Version", DisplayOrder = 2, IsPrimary = false },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-3.jpg", AltText = "Dinosaur Plushie - Orange Version", DisplayOrder = 3, IsPrimary = false },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-1.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-3.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-1.jpg", AltText = "Rainbow Unicorn - Full Body", DisplayOrder = 1, IsPrimary = true },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-2.jpg", AltText = "Rainbow Unicorn - Mane Detail", DisplayOrder = 2, IsPrimary = false },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-3.jpg", AltText = "Rainbow Unicorn - Horn Close-up", DisplayOrder = 3, IsPrimary = false },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-1.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-3.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-1.jpg", AltText = "Octopus Cuddle Buddy - Full View", DisplayOrder = 1, IsPrimary = true },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-2.jpg", AltText = "Octopus Cuddle Buddy - Tentacles Detail", DisplayOrder = 2, IsPrimary = false },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-3.jpg", AltText = "Octopus Cuddle Buddy - Face Close-up", DisplayOrder = 3, IsPrimary = false }
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-1.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-3.jpg", DisplayOrder = 3 }
         );
     }
 }
