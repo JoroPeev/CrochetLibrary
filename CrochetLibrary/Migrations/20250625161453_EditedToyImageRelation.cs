@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CrochetLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class RequestModelFix : Migration
+    public partial class EditedToyImageRelation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,6 +50,23 @@ namespace CrochetLibrary.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Requests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ToyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Requests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,38 +192,12 @@ namespace CrochetLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Requests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ToyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Requests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Requests_Toys_ToyId",
-                        column: x => x.ToyId,
-                        principalTable: "Toys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ToyImages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    AltText = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    IsPrimary = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ToyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -225,33 +216,33 @@ namespace CrochetLibrary.Migrations
                 columns: new[] { "Id", "Colors", "Description", "Name", "Price", "Stock" },
                 values: new object[,]
                 {
-                    { new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec"), "White, Rainbow", "Magical hand-crocheted unicorn...", "Rainbow Unicorn", 34.990000000000002, 12 },
-                    { new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c"), "Brown, Beige, Cream", "Soft and cuddly hand-crocheted teddy bear...", "Classic Teddy Bear", 24.989999999999998, 20 },
-                    { new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846"), "White, Pink, Lavender", "Adorable crochet bunny...", "Amigurumi Bunny", 29.5, 15 },
-                    { new Guid("dfca9479-fac6-4501-a3f4-1dce69130175"), "Blue, Teal, Purple", "Soft, huggable octopus...", "Octopus Cuddle Buddy", 22.5, 25 },
-                    { new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273"), "Green, Blue, Orange", "Playful crochet dinosaur...", "Dinosaur Plushie", 26.75, 18 }
+                    { new Guid("13ce91d0-e640-406d-9f1f-b08811390a04"), "Blue, Teal, Purple", "Soft, huggable octopus...", "Octopus Cuddle Buddy", 22.5, 25 },
+                    { new Guid("491ce4e7-444d-4dc9-8178-35424232d3db"), "Green, Blue, Orange", "Playful crochet dinosaur...", "Dinosaur Plushie", 26.75, 18 },
+                    { new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0"), "White, Rainbow", "Magical hand-crocheted unicorn...", "Rainbow Unicorn", 34.990000000000002, 12 },
+                    { new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3"), "White, Pink, Lavender", "Adorable crochet bunny...", "Amigurumi Bunny", 29.5, 15 },
+                    { new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd"), "Brown, Beige, Cream", "Soft and cuddly hand-crocheted teddy bear...", "Classic Teddy Bear", 24.989999999999998, 20 }
                 });
 
             migrationBuilder.InsertData(
                 table: "ToyImages",
-                columns: new[] { "Id", "AltText", "CreatedAt", "DisplayOrder", "ImageUrl", "IsPrimary", "ToyId" },
+                columns: new[] { "Id", "DisplayOrder", "ImageUrl", "ToyId" },
                 values: new object[,]
                 {
-                    { new Guid("0e94003a-53fe-4533-8ea8-17f76edc18b5"), "Amigurumi Bunny - Close-up Face", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4094), 3, "https://example.com/bunny-3.jpg", false, new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846") },
-                    { new Guid("1ee7283c-20b9-4fa4-875e-4a8b13e1db6c"), "Octopus Cuddle Buddy - Tentacles Detail", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4122), 2, "https://example.com/octopus-2.jpg", false, new Guid("dfca9479-fac6-4501-a3f4-1dce69130175") },
-                    { new Guid("2e6a6d21-d91a-484b-b37b-d70503572d2e"), "Dinosaur Plushie - Green Version", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4100), 1, "https://example.com/dinosaur-1.jpg", true, new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273") },
-                    { new Guid("3ac64125-7eec-4682-aae0-126c173e1797"), "Dinosaur Plushie - Blue Version", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4103), 2, "https://example.com/dinosaur-2.jpg", false, new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273") },
-                    { new Guid("4089cd30-dd3c-4bc5-b129-9932643781d7"), "Classic Teddy Bear - Front View", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4067), 1, "https://example.com/teddy-bear-1.jpg", true, new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c") },
-                    { new Guid("42b5f252-09e4-4a43-a0af-3a2315de340f"), "Octopus Cuddle Buddy - Full View", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4119), 1, "https://example.com/octopus-1.jpg", true, new Guid("dfca9479-fac6-4501-a3f4-1dce69130175") },
-                    { new Guid("591627a4-4879-42c6-816a-48de32d68fce"), "Amigurumi Bunny - Without Dress", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4091), 2, "https://example.com/bunny-2.jpg", false, new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846") },
-                    { new Guid("721604c7-4e11-45f0-938a-182670425ebd"), "Dinosaur Plushie - Orange Version", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4105), 3, "https://example.com/dinosaur-3.jpg", false, new Guid("f94e39e2-1c8b-487f-9ecf-9940a2e4f273") },
-                    { new Guid("91921b8d-df13-4ea4-a41a-99b50ae7ac3b"), "Octopus Cuddle Buddy - Face Close-up", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4127), 3, "https://example.com/octopus-3.jpg", false, new Guid("dfca9479-fac6-4501-a3f4-1dce69130175") },
-                    { new Guid("9a0dec0c-3a3a-4e5a-a0aa-e3b7e228f7e5"), "Rainbow Unicorn - Full Body", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4108), 1, "https://example.com/unicorn-1.jpg", true, new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec") },
-                    { new Guid("9dfdf529-d89a-4fa4-bc7c-bbab573989d3"), "Rainbow Unicorn - Mane Detail", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4114), 2, "https://example.com/unicorn-2.jpg", false, new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec") },
-                    { new Guid("aec81dda-d7a9-4899-91f2-8196a2117de2"), "Classic Teddy Bear - Side View", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4075), 2, "https://example.com/teddy-bear-2.jpg", false, new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c") },
-                    { new Guid("c9d5436d-a3fe-4389-bcbf-c1e34d8168c2"), "Classic Teddy Bear - Back View", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4085), 3, "https://example.com/teddy-bear-3.jpg", false, new Guid("ce74948f-2b40-4b46-8a37-b455b6f5d39c") },
-                    { new Guid("f5ed5c0f-4420-4ffb-9673-d3d9f6c0ca4a"), "Amigurumi Bunny - With Dress", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4088), 1, "https://example.com/bunny-1.jpg", true, new Guid("d92f84f6-65b9-4eb6-98fe-057d65515846") },
-                    { new Guid("fedb71d7-be33-4fab-abf0-394b28973790"), "Rainbow Unicorn - Horn Close-up", new DateTime(2025, 6, 19, 15, 19, 27, 232, DateTimeKind.Utc).AddTicks(4116), 3, "https://example.com/unicorn-3.jpg", false, new Guid("c230ca66-a6d7-4d62-8477-303aaddee9ec") }
+                    { new Guid("0d6e2126-1cce-48e6-aaab-46fd2b96ee3f"), 2, "https://example.com/unicorn-2.jpg", new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0") },
+                    { new Guid("153a73ed-ccf3-4ff3-ab93-2cff7e652f20"), 2, "https://example.com/teddy-bear-2.jpg", new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd") },
+                    { new Guid("2a73d155-0a99-425b-9f9d-3cc993f34e2d"), 1, "https://example.com/octopus-1.jpg", new Guid("13ce91d0-e640-406d-9f1f-b08811390a04") },
+                    { new Guid("36a71d98-3fd3-4663-9cb3-b10be18c8d18"), 3, "https://example.com/bunny-3.jpg", new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3") },
+                    { new Guid("5ac778c2-08e6-43e4-a9a5-ae3b9f43dc95"), 1, "https://example.com/unicorn-1.jpg", new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0") },
+                    { new Guid("60704c6b-e5d6-407d-9776-01ed220e6353"), 1, "https://example.com/teddy-bear-1.jpg", new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd") },
+                    { new Guid("680359aa-9792-4d1e-82fd-63acf906e7bf"), 3, "https://example.com/dinosaur-3.jpg", new Guid("491ce4e7-444d-4dc9-8178-35424232d3db") },
+                    { new Guid("70c6500c-7180-444d-b864-df0ee5bf648d"), 2, "https://example.com/dinosaur-2.jpg", new Guid("491ce4e7-444d-4dc9-8178-35424232d3db") },
+                    { new Guid("8667a67a-1bf6-4602-93d2-3acf6ea1d6f5"), 1, "https://example.com/bunny-1.jpg", new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3") },
+                    { new Guid("90111a3d-e177-4343-910a-75713d4a7213"), 2, "https://example.com/bunny-2.jpg", new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3") },
+                    { new Guid("91c31f50-9eb9-4dad-b945-a5934b95eed6"), 3, "https://example.com/octopus-3.jpg", new Guid("13ce91d0-e640-406d-9f1f-b08811390a04") },
+                    { new Guid("ab67b0ef-37bf-41c6-a29a-770883329b41"), 2, "https://example.com/octopus-2.jpg", new Guid("13ce91d0-e640-406d-9f1f-b08811390a04") },
+                    { new Guid("b63f9227-0943-4219-84ed-faf020641848"), 1, "https://example.com/dinosaur-1.jpg", new Guid("491ce4e7-444d-4dc9-8178-35424232d3db") },
+                    { new Guid("de549612-a8bb-4665-8caf-a4314364fa82"), 3, "https://example.com/unicorn-3.jpg", new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0") },
+                    { new Guid("f7234ffc-ba5a-4000-b530-dd876047a160"), 3, "https://example.com/teddy-bear-3.jpg", new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -294,21 +285,9 @@ namespace CrochetLibrary.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Requests_ToyId",
-                table: "Requests",
-                column: "ToyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ToyImages_ToyId_DisplayOrder",
                 table: "ToyImages",
                 columns: new[] { "ToyId", "DisplayOrder" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ToyImages_ToyId_IsPrimary",
-                table: "ToyImages",
-                columns: new[] { "ToyId", "IsPrimary" },
-                unique: true,
-                filter: "[IsPrimary] = 1");
         }
 
         /// <inheritdoc />

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrochetLibrary.Migrations
 {
     [DbContext(typeof(CrochetDbContext))]
-    [Migration("20250623151707_RemovedRelationInRequest")]
-    partial class RemovedRelationInRequest
+    [Migration("20250625161453_EditedToyImageRelation")]
+    partial class EditedToyImageRelation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,14 +31,6 @@ namespace CrochetLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AltText")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
@@ -47,9 +39,6 @@ namespace CrochetLibrary.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<bool>("IsPrimary")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("ToyId")
                         .HasColumnType("uniqueidentifier");
 
@@ -57,162 +46,113 @@ namespace CrochetLibrary.Migrations
 
                     b.HasIndex("ToyId", "DisplayOrder");
 
-                    b.HasIndex("ToyId", "IsPrimary")
-                        .IsUnique()
-                        .HasFilter("[IsPrimary] = 1");
-
                     b.ToTable("ToyImages");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d621eb2a-544f-4ae5-82f8-bf9eadca96df"),
-                            AltText = "Classic Teddy Bear - Front View",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6006),
+                            Id = new Guid("60704c6b-e5d6-407d-9776-01ed220e6353"),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/teddy-bear-1.jpg",
-                            IsPrimary = true,
-                            ToyId = new Guid("2805d110-80f9-4a1c-93a2-1c74247e8743")
+                            ToyId = new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd")
                         },
                         new
                         {
-                            Id = new Guid("8dd69f92-32c5-4531-8249-fbbf795d8a07"),
-                            AltText = "Classic Teddy Bear - Side View",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6022),
+                            Id = new Guid("153a73ed-ccf3-4ff3-ab93-2cff7e652f20"),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/teddy-bear-2.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("2805d110-80f9-4a1c-93a2-1c74247e8743")
+                            ToyId = new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd")
                         },
                         new
                         {
-                            Id = new Guid("e6b06d3b-6d8c-4b8e-bd97-230ef108bacd"),
-                            AltText = "Classic Teddy Bear - Back View",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6025),
+                            Id = new Guid("f7234ffc-ba5a-4000-b530-dd876047a160"),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/teddy-bear-3.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("2805d110-80f9-4a1c-93a2-1c74247e8743")
+                            ToyId = new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd")
                         },
                         new
                         {
-                            Id = new Guid("0cbde2ff-a88a-474c-ab22-c95c1d797757"),
-                            AltText = "Amigurumi Bunny - With Dress",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6028),
+                            Id = new Guid("8667a67a-1bf6-4602-93d2-3acf6ea1d6f5"),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/bunny-1.jpg",
-                            IsPrimary = true,
-                            ToyId = new Guid("667caae8-ae1f-4c43-b7ea-caa5f28ef782")
+                            ToyId = new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3")
                         },
                         new
                         {
-                            Id = new Guid("690f086a-5827-4bec-b081-0c61f3bec01d"),
-                            AltText = "Amigurumi Bunny - Without Dress",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6030),
+                            Id = new Guid("90111a3d-e177-4343-910a-75713d4a7213"),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/bunny-2.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("667caae8-ae1f-4c43-b7ea-caa5f28ef782")
+                            ToyId = new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3")
                         },
                         new
                         {
-                            Id = new Guid("7882c634-c529-484a-b9b5-abdca328c39b"),
-                            AltText = "Amigurumi Bunny - Close-up Face",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6036),
+                            Id = new Guid("36a71d98-3fd3-4663-9cb3-b10be18c8d18"),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/bunny-3.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("667caae8-ae1f-4c43-b7ea-caa5f28ef782")
+                            ToyId = new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3")
                         },
                         new
                         {
-                            Id = new Guid("0bd11c15-296b-4d32-bad8-b00ffcadc9c7"),
-                            AltText = "Dinosaur Plushie - Green Version",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6039),
+                            Id = new Guid("b63f9227-0943-4219-84ed-faf020641848"),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/dinosaur-1.jpg",
-                            IsPrimary = true,
-                            ToyId = new Guid("330988c9-9544-41b0-9036-33986fe97c56")
+                            ToyId = new Guid("491ce4e7-444d-4dc9-8178-35424232d3db")
                         },
                         new
                         {
-                            Id = new Guid("cc2c316d-9793-4650-a603-851c07de0247"),
-                            AltText = "Dinosaur Plushie - Blue Version",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6041),
+                            Id = new Guid("70c6500c-7180-444d-b864-df0ee5bf648d"),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/dinosaur-2.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("330988c9-9544-41b0-9036-33986fe97c56")
+                            ToyId = new Guid("491ce4e7-444d-4dc9-8178-35424232d3db")
                         },
                         new
                         {
-                            Id = new Guid("c901cd8e-17f5-4f51-a696-06f8135c646b"),
-                            AltText = "Dinosaur Plushie - Orange Version",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6044),
+                            Id = new Guid("680359aa-9792-4d1e-82fd-63acf906e7bf"),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/dinosaur-3.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("330988c9-9544-41b0-9036-33986fe97c56")
+                            ToyId = new Guid("491ce4e7-444d-4dc9-8178-35424232d3db")
                         },
                         new
                         {
-                            Id = new Guid("91acb3c0-afa4-4931-a198-cbfe4c43d2a6"),
-                            AltText = "Rainbow Unicorn - Full Body",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6049),
+                            Id = new Guid("5ac778c2-08e6-43e4-a9a5-ae3b9f43dc95"),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/unicorn-1.jpg",
-                            IsPrimary = true,
-                            ToyId = new Guid("c7be4500-52df-47de-baff-4f8186745fa5")
+                            ToyId = new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0")
                         },
                         new
                         {
-                            Id = new Guid("07e69e97-24f8-40ef-9bb4-4fc70cbb752c"),
-                            AltText = "Rainbow Unicorn - Mane Detail",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6052),
+                            Id = new Guid("0d6e2126-1cce-48e6-aaab-46fd2b96ee3f"),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/unicorn-2.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("c7be4500-52df-47de-baff-4f8186745fa5")
+                            ToyId = new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0")
                         },
                         new
                         {
-                            Id = new Guid("ed19cab6-5146-4183-9164-9d0bb415c7cb"),
-                            AltText = "Rainbow Unicorn - Horn Close-up",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6054),
+                            Id = new Guid("de549612-a8bb-4665-8caf-a4314364fa82"),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/unicorn-3.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("c7be4500-52df-47de-baff-4f8186745fa5")
+                            ToyId = new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0")
                         },
                         new
                         {
-                            Id = new Guid("8e6082df-5c87-4510-a1ba-3415d22827d6"),
-                            AltText = "Octopus Cuddle Buddy - Full View",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6057),
+                            Id = new Guid("2a73d155-0a99-425b-9f9d-3cc993f34e2d"),
                             DisplayOrder = 1,
                             ImageUrl = "https://example.com/octopus-1.jpg",
-                            IsPrimary = true,
-                            ToyId = new Guid("79f2f51d-4048-404e-98f9-eb3897b4d18e")
+                            ToyId = new Guid("13ce91d0-e640-406d-9f1f-b08811390a04")
                         },
                         new
                         {
-                            Id = new Guid("a3b06a42-89d9-4c33-b2a5-582ac7cec9d4"),
-                            AltText = "Octopus Cuddle Buddy - Tentacles Detail",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6062),
+                            Id = new Guid("ab67b0ef-37bf-41c6-a29a-770883329b41"),
                             DisplayOrder = 2,
                             ImageUrl = "https://example.com/octopus-2.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("79f2f51d-4048-404e-98f9-eb3897b4d18e")
+                            ToyId = new Guid("13ce91d0-e640-406d-9f1f-b08811390a04")
                         },
                         new
                         {
-                            Id = new Guid("4d5a89d0-ad7f-4791-b61d-cd91df02b7d6"),
-                            AltText = "Octopus Cuddle Buddy - Face Close-up",
-                            CreatedAt = new DateTime(2025, 6, 23, 15, 17, 6, 597, DateTimeKind.Utc).AddTicks(6065),
+                            Id = new Guid("91c31f50-9eb9-4dad-b945-a5934b95eed6"),
                             DisplayOrder = 3,
                             ImageUrl = "https://example.com/octopus-3.jpg",
-                            IsPrimary = false,
-                            ToyId = new Guid("79f2f51d-4048-404e-98f9-eb3897b4d18e")
+                            ToyId = new Guid("13ce91d0-e640-406d-9f1f-b08811390a04")
                         });
                 });
 
@@ -481,7 +421,7 @@ namespace CrochetLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2805d110-80f9-4a1c-93a2-1c74247e8743"),
+                            Id = new Guid("f7ca06fa-3485-4589-bff5-ceab4b2cebcd"),
                             Colors = "Brown, Beige, Cream",
                             Description = "Soft and cuddly hand-crocheted teddy bear...",
                             Name = "Classic Teddy Bear",
@@ -490,7 +430,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("667caae8-ae1f-4c43-b7ea-caa5f28ef782"),
+                            Id = new Guid("c5fb3bb2-5862-4812-bd5a-c9f5d17752a3"),
                             Colors = "White, Pink, Lavender",
                             Description = "Adorable crochet bunny...",
                             Name = "Amigurumi Bunny",
@@ -499,7 +439,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("330988c9-9544-41b0-9036-33986fe97c56"),
+                            Id = new Guid("491ce4e7-444d-4dc9-8178-35424232d3db"),
                             Colors = "Green, Blue, Orange",
                             Description = "Playful crochet dinosaur...",
                             Name = "Dinosaur Plushie",
@@ -508,7 +448,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c7be4500-52df-47de-baff-4f8186745fa5"),
+                            Id = new Guid("9e75471d-17ba-4665-a2a1-e2e008f061a0"),
                             Colors = "White, Rainbow",
                             Description = "Magical hand-crocheted unicorn...",
                             Name = "Rainbow Unicorn",
@@ -517,7 +457,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("79f2f51d-4048-404e-98f9-eb3897b4d18e"),
+                            Id = new Guid("13ce91d0-e640-406d-9f1f-b08811390a04"),
                             Colors = "Blue, Teal, Purple",
                             Description = "Soft, huggable octopus...",
                             Name = "Octopus Cuddle Buddy",
