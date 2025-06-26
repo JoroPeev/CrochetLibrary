@@ -65,5 +65,24 @@ namespace CrochetLibrary.Controllers
             return Ok(images ?? new List<ToyImage>());
         }
 
+        [HttpPost("{id:guid}/images")]
+        public async Task<IActionResult> AddImagesToToy(Guid id, [FromBody] List<string> imageUrls)
+        {
+            var result = await _toyService.AddImagesToToyAsync(id, imageUrls);
+            if (!result)
+                return NotFound();
+
+            return NoContent();
+        }
+        [HttpPut("images/{imageId:guid}")]
+        public async Task<IActionResult> UpdateImage(Guid imageId, [FromBody] ToyImageDto dto)
+        {
+            var result = await _toyService.UpdateImageAsync(imageId, dto.ImageUrl, dto.DisplayOrder);
+            if (!result)
+                return NotFound();
+
+            return NoContent();
+        }
+
     }
 }
