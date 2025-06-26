@@ -46,25 +46,25 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
 
         // Seed ToyImages
         modelBuilder.Entity<ToyImage>().HasData(
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-1.jpg", DisplayOrder = 1 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-2.jpg", DisplayOrder = 2 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://example.com/teddy-bear-3.jpg", DisplayOrder = 3 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_0.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/3:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy1Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_3.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-1.jpg", DisplayOrder = 1 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-2.jpg", DisplayOrder = 2 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://example.com/bunny-3.jpg", DisplayOrder = 3 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_3.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/2:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_1.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy2Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_0.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-1.jpg", DisplayOrder = 1 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-2.jpg", DisplayOrder = 2 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://example.com/dinosaur-3.jpg", DisplayOrder = 3 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/4:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_3.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/2:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_1.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy3Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/1:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_0.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-1.jpg", DisplayOrder = 1 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-2.jpg", DisplayOrder = 2 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://example.com/unicorn-3.jpg", DisplayOrder = 3 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/4:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_3.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/3:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/2:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_1.jpg", DisplayOrder = 3 },
 
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-1.jpg", DisplayOrder = 1 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-2.jpg", DisplayOrder = 2 },
-            new ToyImage { Id = Guid.NewGuid(), ToyId = toy5Id, ImageUrl = "https://example.com/octopus-3.jpg", DisplayOrder = 3 }
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/4:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_3.jpg", DisplayOrder = 1 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/3:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_2.jpg", DisplayOrder = 2 },
+            new ToyImage { Id = Guid.NewGuid(), ToyId = toy4Id, ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/2:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_1.jpg", DisplayOrder = 3 }
         );
     }
 }
