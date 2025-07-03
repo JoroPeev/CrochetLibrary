@@ -2,6 +2,7 @@
 using CrochetLibrary.Middleware;
 using CrochetLibrary.Services;
 using CrochetLibrary.Services.Auth;
+using CrochetLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IToyService, ToyService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddCors(options =>
 {
