@@ -1,5 +1,6 @@
 ﻿using CrochetLibrary.Models;
 using CrochetLibrary.Services;
+using CrochetLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrochetLibrary.Controllers
@@ -9,10 +10,11 @@ namespace CrochetLibrary.Controllers
     public class ToysController : ControllerBase
     {
         private readonly IToyService _toyService;
-
-        public ToysController(IToyService toyService)
+        private readonly IEmailService _emailService;
+        public ToysController(IToyService toyService, IEmailService emailService)
         {
             _toyService = toyService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -83,6 +85,11 @@ namespace CrochetLibrary.Controllers
 
             return NoContent();
         }
-
+        [HttpPost("send-email")]
+        public IActionResult SendEmail()
+        {
+            _emailService.SendEmail("recipient@gmail.com", "Hello", "This is a test email.");
+            return Ok("Email sent!");
+        }
     }
 }
