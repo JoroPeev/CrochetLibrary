@@ -85,11 +85,6 @@ namespace CrochetLibrary.Controllers
 
             return NoContent();
         }
-        [HttpPost("send-email")]
-        public IActionResult SendEmail()
-        {
-            _emailService.SendEmail("recipient@gmail.com", "Hello", "This is a test email.");
-            return Ok("Email sent!");
-        }
+
     }
 }
