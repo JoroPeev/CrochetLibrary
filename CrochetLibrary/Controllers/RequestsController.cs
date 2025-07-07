@@ -1,5 +1,6 @@
 ﻿using CrochetLibrary.Data;
 using CrochetLibrary.DataTransferObject;
+using CrochetLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,11 @@ using Microsoft.EntityFrameworkCore;
 public class RequestsController : ControllerBase
 {
     private readonly CrochetDbContext _context;
-
-    public RequestsController(CrochetDbContext context)
+    private readonly IEmailService _emailService;
+    public RequestsController(CrochetDbContext context, IEmailService emailService)
     {
         _context = context;
+        _emailService = emailService;
     }
 
     [HttpPost]
@@ -30,7 +32,6 @@ public class RequestsController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok();
     }
-
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CustomerRequest>>> GetRequests()
@@ -53,5 +54,26 @@ public class RequestsController : ControllerBase
         await _context.SaveChangesAsync();
 
         return NoContent();
+    }
+
+    [HttpPost("send-email")]
+    public async Task<IActionResult> SendBulkEmail([FromBody] BulkEmailDTO emailDto)
+    {
+        var emails = await _context.Requests
+                                   .Select(r => r.Email)
+                                   .Distinct()
+                                   .ToListAsync();
+
+        if (emails == null || !emails.Any())
+        {
+            return NotFound("No emails found to send.");
+        }
+
+        foreach (var email in emails)
+        {
+            _emailService.SendEmail(email, emailDto.Subject, emailDto.Message);
+        }
+
+        return Ok("Emails sent successfully!");
     }
 }
