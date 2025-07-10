@@ -1,28 +1,48 @@
-﻿using CrochetLibrary.Services.Interfaces;
-using MailKit.Net.Smtp;
-using MimeKit;
+﻿using CrochetLibrary.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Net.Mail;
 
 public class EmailService : IEmailService
 {
-    private readonly IConfiguration _config;
+    private readonly IConfiguration configuration;
+    private readonly CrochetDbContext dbContext;
 
-    public EmailService(IConfiguration config)
+    public EmailService(IConfiguration configuration, CrochetDbContext dbContext)
     {
-        _config = config;
+        this.configuration = configuration;
+        this.dbContext = dbContext;
     }
 
-    public void SendEmail(string to, string subject, string body)
+    public async Task SendMailToAllRequests(string subject, string body)
     {
-        var email = new MimeMessage();
-        email.From.Add(MailboxAddress.Parse(_config["EmailSettings:From"]));
-        email.To.Add(MailboxAddress.Parse(to));
-        email.Subject = subject;
-        email.Body = new TextPart("plain") { Text = body };
+        var email = configuration.GetValue<string>("EMAIL_CONFIGURATION:EMAIL");
+        var pass = configuration.GetValue<string>("EMAIL_CONFIGURATION:PASSWORD");
+        var host = configuration.GetValue<string>("EMAIL_CONFIGURATION:HOST");
+        var port = configuration.GetValue<int>("EMAIL_CONFIGURATION:PORT");
 
-        using var smtp = new SmtpClient();
-        smtp.Connect(_config["EmailSettings:SmtpServer"], 587, MailKit.Security.SecureSocketOptions.StartTls);
-        smtp.Authenticate(_config["EmailSettings:From"], _config["EmailSettings:Password"]);
-        smtp.Send(email);
-        smtp.Disconnect(true);
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass) || string.IsNullOrEmpty(host) || port == 0)
+            throw new Exception("SMTP configuration missing or invalid.");
+
+        var smtpClient = new SmtpClient(host, port)
+        {
+            EnableSsl = true,
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential(email, pass)
+        };
+
+        var emails = await dbContext.Requests
+                         .Select(r => r.Email)
+                         .Distinct()
+                         .ToListAsync();
+
+        if (!emails.Any())
+            throw new Exception("No email addresses found.");
+
+        foreach (var recipient in emails)
+        {
+            var message = new MailMessage(email, recipient, subject, body);
+            await smtpClient.SendMailAsync(message);
+        }
     }
 }
