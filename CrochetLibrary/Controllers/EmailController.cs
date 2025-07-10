@@ -1,52 +1,27 @@
-﻿using CrochetLibrary.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("[controller]")]
-public class MailController : Controller
+[Route("api/[controller]")]
+public class MailController : ControllerBase
 {
-    private readonly EmailService _emailService;
-    private readonly CrochetDbContext _context;
+    private readonly IEmailService emailService;
 
-    public MailController(EmailService emailService, CrochetDbContext context)
+    public MailController(IEmailService emailService)
     {
-        _emailService = emailService;
-        _context = context;
+        this.emailService = emailService;
     }
 
-    [HttpPost("send-email-individual")]
-    public async Task<IActionResult> SendEmailIndividual([FromBody] BulkEmailDTO emailDto)
+    [HttpPost("Broadcast")]
+    public async Task<IActionResult> BroadcastEmail([FromQuery] string subject, [FromQuery] string body)
     {
-        var emails = await _context.Requests
-                                   .Select(r => r.Email)
-                                   .Distinct()
-                                   .ToListAsync();
-
-        if (!emails.Any())
-            return NotFound("No emails found to send.");
-
-        var emailTasks = emails.Select(email =>
-            _emailService.SendEmailAsync(email, emailDto.Subject, emailDto.Message));
-
-        await Task.WhenAll(emailTasks);
-
-        return Ok("Individual emails sent successfully!");
-    }
-
-    [HttpPost("send-email-bcc")]
-    public async Task<IActionResult> SendEmailBcc([FromBody] BulkEmailDTO emailDto)
-    {
-        var emails = await _context.Requests
-                                   .Select(r => r.Email)
-                                   .Distinct()
-                                   .ToListAsync();
-
-        if (!emails.Any())
-            return NotFound("No emails found to send.");
-
-        await _emailService.SendBulkEmailBccAsync(emails, emailDto.Subject, emailDto.Message);
-
-        return Ok("Single email sent via BCC successfully!");
+        try
+        {
+            await emailService.SendMailToAllRequests(subject, body);
+            return Ok("Emails sent to all requesters.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = ex.Message });
+        }
     }
 }
