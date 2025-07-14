@@ -20,5 +20,6 @@ namespace CrochetLibrary.DataTransferObject
         [Required]
         public DateTime DueDate { get; set; }
 
+        public bool SubscribeToNewsletter { get; set; }
     }
 }
