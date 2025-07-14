@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 public class RequestsController : ControllerBase
 {
     private readonly CrochetDbContext _context;
+
     public RequestsController(CrochetDbContext context)
     {
         _context = context;
@@ -22,7 +23,8 @@ public class RequestsController : ControllerBase
             Name = requestDto.Name,
             Email = requestDto.Email,
             Message = requestDto.Message,
-            DueDate = requestDto.DueDate
+            DueDate = requestDto.DueDate,
+            SubscribeToNewsletter = requestDto.SubscribeToNewsletter,
         };
 
         _context.Requests.Add(customerRequest);
@@ -35,6 +37,16 @@ public class RequestsController : ControllerBase
     {
         var requests = await _context.Requests.ToListAsync();
         return Ok(requests);
+    }
+
+    [HttpGet("subscribed")]
+    public async Task<ActionResult<IEnumerable<CustomerRequest>>> GetSubscribedCustomers()
+    {
+        var subscribedCustomers = await _context.Requests
+            .Where(c => c.SubscribeToNewsletter)
+            .ToListAsync();
+
+        return Ok(subscribedCustomers);
     }
 
     [HttpDelete("{id}")]
@@ -52,5 +64,4 @@ public class RequestsController : ControllerBase
 
         return NoContent();
     }
-
 }
