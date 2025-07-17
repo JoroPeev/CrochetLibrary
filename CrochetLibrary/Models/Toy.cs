@@ -26,6 +26,13 @@ public class Toy
     [Range(0, 1000)]
     public int Stock { get; set; }
 
+    [Range(0, 1000)]
+    public int CraftingTimeInDays { get; set; }
+
+    [Range(0, 5)]
+    public double? CustomerRating { get; set; }
+
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     public virtual ICollection<ToyImage> Images { get; set; } = new List<ToyImage>();
 
     [NotMapped]
