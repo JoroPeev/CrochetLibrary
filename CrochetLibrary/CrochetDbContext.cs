@@ -12,6 +12,7 @@ public class CrochetDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Toy> Toys { get; set; }
     public DbSet<ToyImage> ToyImages { get; set; }
     public DbSet<CustomerRequest> Requests { get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
