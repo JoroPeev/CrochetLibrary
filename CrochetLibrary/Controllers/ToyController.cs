@@ -1,6 +1,4 @@
-﻿using CrochetLibrary.Models;
-using CrochetLibrary.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace CrochetLibrary.Controllers
 {
@@ -9,6 +7,7 @@ namespace CrochetLibrary.Controllers
     public class ToysController : ControllerBase
     {
         private readonly IToyService _toyService;
+
         public ToysController(IToyService toyService)
         {
             _toyService = toyService;
@@ -56,32 +55,5 @@ namespace CrochetLibrary.Controllers
 
             return NoContent();
         }
-
-        [HttpGet("{id:guid}/images")]
-        public async Task<ActionResult<IEnumerable<ToyImage>>> GetImages([FromRoute] Guid id)
-        {
-            var images = await _toyService.GetToyImagesAsync(id);
-            return Ok(images ?? new List<ToyImage>());
-        }
-
-        [HttpPost("{id:guid}/images")]
-        public async Task<IActionResult> AddImagesToToy(Guid id, [FromBody] List<string> imageUrls)
-        {
-            var result = await _toyService.AddImagesToToyAsync(id, imageUrls);
-            if (!result)
-                return NotFound();
-
-            return NoContent();
-        }
-        [HttpPut("images/{imageId:guid}")]
-        public async Task<IActionResult> UpdateImage(Guid imageId, [FromBody] ToyImageDto dto)
-        {
-            var result = await _toyService.UpdateImageAsync(imageId, dto.ImageUrl, dto.DisplayOrder);
-            if (!result)
-                return NotFound();
-
-            return NoContent();
-        }
-
     }
 }
