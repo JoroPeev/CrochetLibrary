@@ -13,14 +13,27 @@ namespace CrochetLibrary.Services
             _context = context;
         }
 
-        public async Task<List<Toy>> GetToysAsync()
+        public async Task<IEnumerable<Toy>> GetToysAsync()
         {
-            return await _context.Toys.ToListAsync();
+            return await _context.Toys
+                .Include(t => t.Images)
+                .Include(t => t.Reviews)
+                .ToListAsync();
         }
 
         public async Task<Toy?> GetToyByIdAsync(Guid id)
         {
-            return await _context.Toys.FirstOrDefaultAsync(t => t.Id == id);
+            return await _context.Toys
+                .Include(t => t.Images)
+                .Include(t => t.Reviews)
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+        public async Task<IEnumerable<Review>> GetToyReviewsAsync(Guid toyId)
+        {
+            return await _context.Reviews
+                .Where(r => r.ToyId == toyId)
+                .ToListAsync();
         }
 
         public async Task<Toy> AddToyAsync(Toy toy)
@@ -33,7 +46,7 @@ namespace CrochetLibrary.Services
 
         public async Task<bool> AddImagesToToyAsync(Guid toyId, List<string> imageUrls)
         {
-            if (!await ToyExistsAsync(toyId) || imageUrls is null or { Count: 0 })
+            if (!await ToyExistsAsync(toyId) || imageUrls is null || imageUrls.Count == 0)
                 return false;
 
             var existingImagesCount = await _context.ToyImages
@@ -44,7 +57,7 @@ namespace CrochetLibrary.Services
                 Id = Guid.NewGuid(),
                 ToyId = toyId,
                 ImageUrl = url,
-                DisplayOrder = existingImagesCount + index + 1,
+                DisplayOrder = existingImagesCount + index + 1
             }).ToList();
 
             _context.ToyImages.AddRange(images);
@@ -84,12 +97,25 @@ namespace CrochetLibrary.Services
             return true;
         }
 
-        public async Task<List<ToyImage>> GetToyImagesAsync(Guid toyId)
+        public async Task<IEnumerable<ToyImage>> GetToyImagesAsync(Guid toyId)
         {
             return await _context.ToyImages
                 .Where(ti => ti.ToyId == toyId)
                 .OrderBy(ti => ti.DisplayOrder)
                 .ToListAsync();
+        }
+
+        public async Task<bool> UpdateImageAsync(Guid imageId, string imageUrl, int displayOrder)
+        {
+            var image = await _context.ToyImages.FindAsync(imageId);
+            if (image is null)
+                return false;
+
+            image.ImageUrl = imageUrl;
+            image.DisplayOrder = displayOrder;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> DeleteImageAsync(Guid imageId)
@@ -103,17 +129,25 @@ namespace CrochetLibrary.Services
             return true;
         }
 
-        public async Task<bool> UpdateImageAsync(Guid imageId, string newImageUrl, int? newDisplayOrder = null)
+        public async Task<bool> AddReviewToToyAsync(Guid toyId, Review review)
         {
-            var image = await _context.ToyImages.FindAsync(imageId);
-            if (image is null)
+            if (!await ToyExistsAsync(toyId) || review is null)
                 return false;
 
-            image.ImageUrl = newImageUrl;
+            review.Id = Guid.NewGuid();
+            review.ToyId = toyId;
+            _context.Reviews.Add(review);
+            await _context.SaveChangesAsync();
+            return true;
+        }
 
-            if (newDisplayOrder.HasValue)
-                image.DisplayOrder = newDisplayOrder.Value;
+        public async Task<bool> DeleteReviewAsync(Guid reviewId)
+        {
+            var review = await _context.Reviews.FindAsync(reviewId);
+            if (review is null)
+                return false;
 
+            _context.Reviews.Remove(review);
             await _context.SaveChangesAsync();
             return true;
         }
