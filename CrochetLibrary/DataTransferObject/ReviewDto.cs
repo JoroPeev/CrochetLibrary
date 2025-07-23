@@ -20,6 +20,8 @@ namespace CrochetLibrary.DataTransferObject
         [Display(Name = "Your Review")]
         public string Comment { get; set; }
 
+        [Range(0, 5)]
+        public double? CustomerRating { get; set; }
         public DateTime ReviewDate { get; set; } = DateTime.UtcNow;
     }
 }
