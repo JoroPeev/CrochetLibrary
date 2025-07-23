@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrochetLibrary.Migrations
 {
     [DbContext(typeof(CrochetDbContext))]
-    [Migration("20250717145329_ReviewsAddedToToy")]
-    partial class ReviewsAddedToToy
+    [Migration("20250723125848_AddedCustomerRaiting")]
+    partial class AddedCustomerRaiting
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,9 @@ namespace CrochetLibrary.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<double?>("CustomerRating")
+                        .HasColumnType("float");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -84,108 +87,108 @@ namespace CrochetLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("32939437-92b4-4e09-8da6-5e5ce0b2f8be"),
+                            Id = new Guid("786133a8-444b-453f-b40d-c51d799a10ee"),
                             DisplayOrder = 1,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_0.jpg",
-                            ToyId = new Guid("21f85996-213f-4709-9505-4a3275fd7c57")
+                            ToyId = new Guid("13493c1b-c63e-4f10-83e1-04c516e56637")
                         },
                         new
                         {
-                            Id = new Guid("5f69c218-069b-4a77-8ce4-5e3eae5436b5"),
+                            Id = new Guid("710d46fe-f993-4c54-aa5f-f1f91e492c5b"),
                             DisplayOrder = 2,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/3:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_2.jpg",
-                            ToyId = new Guid("21f85996-213f-4709-9505-4a3275fd7c57")
+                            ToyId = new Guid("13493c1b-c63e-4f10-83e1-04c516e56637")
                         },
                         new
                         {
-                            Id = new Guid("3650833f-78cc-4395-8914-92893de99afa"),
+                            Id = new Guid("6c0dcca1-58d6-4d85-9c37-7702a0f5a491"),
                             DisplayOrder = 3,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_3.jpg",
-                            ToyId = new Guid("21f85996-213f-4709-9505-4a3275fd7c57")
+                            ToyId = new Guid("13493c1b-c63e-4f10-83e1-04c516e56637")
                         },
                         new
                         {
-                            Id = new Guid("e76b5eec-fdef-4297-9ea7-bf777a1485db"),
+                            Id = new Guid("57dffe02-e0d5-435b-8494-7b14e940cb43"),
                             DisplayOrder = 1,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_3.jpg",
-                            ToyId = new Guid("0c983bc2-517c-4a1a-8868-648470f40479")
+                            ToyId = new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe")
                         },
                         new
                         {
-                            Id = new Guid("52ff511a-756d-4faa-bcfc-b5cc4dec2b54"),
+                            Id = new Guid("5a2f238f-3f15-4c81-8142-1a9f7669314f"),
                             DisplayOrder = 2,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/2:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_1.jpg",
-                            ToyId = new Guid("0c983bc2-517c-4a1a-8868-648470f40479")
+                            ToyId = new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe")
                         },
                         new
                         {
-                            Id = new Guid("a45d3080-203c-439c-b2fe-31113887976c"),
+                            Id = new Guid("8d52f78b-6e3a-4b3a-a851-f9f4a6e5b922"),
                             DisplayOrder = 3,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_0.jpg",
-                            ToyId = new Guid("0c983bc2-517c-4a1a-8868-648470f40479")
+                            ToyId = new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe")
                         },
                         new
                         {
-                            Id = new Guid("36ad4d89-564e-40d4-aadc-fd8b5a0434fa"),
+                            Id = new Guid("4f487574-4544-4db3-8489-17941fc79017"),
                             DisplayOrder = 1,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/4:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_3.jpg",
-                            ToyId = new Guid("e1d30af1-50f7-4a21-af44-ef20e8eef5ff")
+                            ToyId = new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4")
                         },
                         new
                         {
-                            Id = new Guid("b80f05e5-dabb-4977-ab80-568c0d9cf273"),
+                            Id = new Guid("271371b9-d312-4ef0-b5eb-4d5e7d96c424"),
                             DisplayOrder = 2,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/2:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_1.jpg",
-                            ToyId = new Guid("e1d30af1-50f7-4a21-af44-ef20e8eef5ff")
+                            ToyId = new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4")
                         },
                         new
                         {
-                            Id = new Guid("8116a819-13c3-4a9c-890b-705a1e259fdf"),
+                            Id = new Guid("df914184-b5a0-4ca8-9bc6-38d0269ba714"),
                             DisplayOrder = 3,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/1:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_0.jpg",
-                            ToyId = new Guid("e1d30af1-50f7-4a21-af44-ef20e8eef5ff")
+                            ToyId = new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4")
                         },
                         new
                         {
-                            Id = new Guid("9050d456-47b3-4fe4-a78b-47ee4b70c797"),
+                            Id = new Guid("959bfd5d-80ad-4dbe-9587-cde0d5298ba6"),
                             DisplayOrder = 1,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/4:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_3.jpg",
-                            ToyId = new Guid("e4c44e1a-cb58-426f-b3d0-b8b1a6ca03fa")
+                            ToyId = new Guid("b5af1a13-6663-42b5-83d5-083f697e78de")
                         },
                         new
                         {
-                            Id = new Guid("a1ccd1e8-e328-4959-a0e9-c8deed16e2c2"),
+                            Id = new Guid("a8e05d80-975f-4353-bcba-51966d4ba527"),
                             DisplayOrder = 2,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/3:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_2.jpg",
-                            ToyId = new Guid("e4c44e1a-cb58-426f-b3d0-b8b1a6ca03fa")
+                            ToyId = new Guid("b5af1a13-6663-42b5-83d5-083f697e78de")
                         },
                         new
                         {
-                            Id = new Guid("ef5f927d-c815-476d-8d9b-68e3b9b7088f"),
+                            Id = new Guid("7468e791-5946-494c-8817-4a355c008731"),
                             DisplayOrder = 3,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/2:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_1.jpg",
-                            ToyId = new Guid("e4c44e1a-cb58-426f-b3d0-b8b1a6ca03fa")
+                            ToyId = new Guid("b5af1a13-6663-42b5-83d5-083f697e78de")
                         },
                         new
                         {
-                            Id = new Guid("2397ce27-0642-4424-84f3-87ce79d60fcf"),
+                            Id = new Guid("87b286bd-0a30-4668-89d3-ce7c11943aed"),
                             DisplayOrder = 1,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/4:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_3.jpg",
-                            ToyId = new Guid("a74b26e9-774e-4b9f-859e-c7515f3983de")
+                            ToyId = new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660")
                         },
                         new
                         {
-                            Id = new Guid("c4ebc081-9bc6-484a-8a74-484ab988b052"),
+                            Id = new Guid("c8e7fce8-5e29-4b8b-8579-635b44695dfa"),
                             DisplayOrder = 2,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/3:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_2.jpg",
-                            ToyId = new Guid("a74b26e9-774e-4b9f-859e-c7515f3983de")
+                            ToyId = new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660")
                         },
                         new
                         {
-                            Id = new Guid("a18f5bf2-d90a-4716-a273-21ceae23805e"),
+                            Id = new Guid("c91601e7-b274-45b5-a7bf-43dad5b85629"),
                             DisplayOrder = 3,
                             ImageUrl = "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/2:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_1.jpg",
-                            ToyId = new Guid("a74b26e9-774e-4b9f-859e-c7515f3983de")
+                            ToyId = new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660")
                         });
                 });
 
@@ -436,9 +439,6 @@ namespace CrochetLibrary.Migrations
                     b.Property<int>("CraftingTimeInDays")
                         .HasColumnType("int");
 
-                    b.Property<double?>("CustomerRating")
-                        .HasColumnType("float");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -463,7 +463,7 @@ namespace CrochetLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("21f85996-213f-4709-9505-4a3275fd7c57"),
+                            Id = new Guid("13493c1b-c63e-4f10-83e1-04c516e56637"),
                             Colors = "Brown, Beige, Cream",
                             CraftingTimeInDays = 0,
                             Description = "Soft and cuddly hand-crocheted teddy bear...",
@@ -473,7 +473,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0c983bc2-517c-4a1a-8868-648470f40479"),
+                            Id = new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe"),
                             Colors = "White, Pink, Lavender",
                             CraftingTimeInDays = 0,
                             Description = "Adorable crochet bunny...",
@@ -483,7 +483,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e1d30af1-50f7-4a21-af44-ef20e8eef5ff"),
+                            Id = new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4"),
                             Colors = "Green, Blue, Orange",
                             CraftingTimeInDays = 0,
                             Description = "Playful crochet dinosaur...",
@@ -493,7 +493,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a74b26e9-774e-4b9f-859e-c7515f3983de"),
+                            Id = new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660"),
                             Colors = "White, Rainbow",
                             CraftingTimeInDays = 0,
                             Description = "Magical hand-crocheted unicorn...",
@@ -503,7 +503,7 @@ namespace CrochetLibrary.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e4c44e1a-cb58-426f-b3d0-b8b1a6ca03fa"),
+                            Id = new Guid("b5af1a13-6663-42b5-83d5-083f697e78de"),
                             Colors = "Blue, Teal, Purple",
                             CraftingTimeInDays = 0,
                             Description = "Soft, huggable octopus...",
