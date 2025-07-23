@@ -20,6 +20,9 @@ namespace CrochetLibrary.Models
         [Display(Name = "Your Name")]
         public string Name { get; set; }
 
+        [Range(0, 5)]
+        public double? CustomerRating { get; set; }
+
         [Required]
         [StringLength(500, ErrorMessage = "Comment cannot exceed 500 characters.")]
         [Display(Name = "Your Review")]
