@@ -23,7 +23,7 @@ namespace CrochetLibrary.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddReviewToToy([FromRoute] Guid id, [FromBody] ReviewDto reviewDto)
+        public async Task<ActionResult<Review>> AddReviewToToy([FromRoute] Guid id, [FromBody] ReviewDto reviewDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -41,8 +41,9 @@ namespace CrochetLibrary.Controllers
             if (!result)
                 return NotFound();
 
-            return NoContent();
+            return CreatedAtAction(nameof(GetReviews), new { id = id }, review);
         }
+
 
         [HttpDelete("{reviewId:guid}")]
         public async Task<IActionResult> DeleteReview([FromRoute] Guid id, [FromRoute] Guid reviewId)
