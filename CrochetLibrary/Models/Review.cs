@@ -19,7 +19,7 @@ namespace CrochetLibrary.Models
         [RegularExpression(@"^[a-zA-Z\s\-']+$", ErrorMessage = "Name can only contain letters, spaces, hyphens, or apostrophes.")]
         [Display(Name = "Your Name")]
         public string Name { get; set; }
-
+        [Required]
         [Range(0, 5)]
         public double? CustomerRating { get; set; }
 
