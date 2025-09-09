@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CrochetLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedCustomerRaiting : Migration
+    public partial class RatingRequired : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -200,7 +200,7 @@ namespace CrochetLibrary.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CustomerRating = table.Column<double>(type: "float", nullable: true),
+                    CustomerRating = table.Column<double>(type: "float", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ReviewDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ToyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -241,11 +241,11 @@ namespace CrochetLibrary.Migrations
                 columns: new[] { "Id", "Colors", "CraftingTimeInDays", "Description", "Name", "Price", "Stock" },
                 values: new object[,]
                 {
-                    { new Guid("13493c1b-c63e-4f10-83e1-04c516e56637"), "Brown, Beige, Cream", 0, "Soft and cuddly hand-crocheted teddy bear...", "Classic Teddy Bear", 24.989999999999998, 20 },
-                    { new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4"), "Green, Blue, Orange", 0, "Playful crochet dinosaur...", "Dinosaur Plushie", 26.75, 18 },
-                    { new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660"), "White, Rainbow", 0, "Magical hand-crocheted unicorn...", "Rainbow Unicorn", 34.990000000000002, 12 },
-                    { new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe"), "White, Pink, Lavender", 0, "Adorable crochet bunny...", "Amigurumi Bunny", 29.5, 15 },
-                    { new Guid("b5af1a13-6663-42b5-83d5-083f697e78de"), "Blue, Teal, Purple", 0, "Soft, huggable octopus...", "Octopus Cuddle Buddy", 22.5, 25 }
+                    { new Guid("2d23265c-86b0-4906-a8e6-bdca192e7303"), "Brown, Beige, Cream", 0, "Soft and cuddly hand-crocheted teddy bear...", "Classic Teddy Bear", 24.989999999999998, 20 },
+                    { new Guid("72a973e8-9874-4f71-9993-288e2b8aa652"), "White, Pink, Lavender", 0, "Adorable crochet bunny...", "Amigurumi Bunny", 29.5, 15 },
+                    { new Guid("75345eb2-421d-40c4-97e0-fa0d1a9d2b42"), "Green, Blue, Orange", 0, "Playful crochet dinosaur...", "Dinosaur Plushie", 26.75, 18 },
+                    { new Guid("e5b98d46-47ad-4e92-92d0-479912b49a80"), "Blue, Teal, Purple", 0, "Soft, huggable octopus...", "Octopus Cuddle Buddy", 22.5, 25 },
+                    { new Guid("f5a0017b-f892-4765-90cf-442f8e7dcc86"), "White, Rainbow", 0, "Magical hand-crocheted unicorn...", "Rainbow Unicorn", 34.990000000000002, 12 }
                 });
 
             migrationBuilder.InsertData(
@@ -253,21 +253,21 @@ namespace CrochetLibrary.Migrations
                 columns: new[] { "Id", "DisplayOrder", "ImageUrl", "ToyId" },
                 values: new object[,]
                 {
-                    { new Guid("271371b9-d312-4ef0-b5eb-4d5e7d96c424"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/2:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_1.jpg", new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4") },
-                    { new Guid("4f487574-4544-4db3-8489-17941fc79017"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/4:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_3.jpg", new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4") },
-                    { new Guid("57dffe02-e0d5-435b-8494-7b14e940cb43"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_3.jpg", new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe") },
-                    { new Guid("5a2f238f-3f15-4c81-8142-1a9f7669314f"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/2:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_1.jpg", new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe") },
-                    { new Guid("6c0dcca1-58d6-4d85-9c37-7702a0f5a491"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_3.jpg", new Guid("13493c1b-c63e-4f10-83e1-04c516e56637") },
-                    { new Guid("710d46fe-f993-4c54-aa5f-f1f91e492c5b"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/3:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_2.jpg", new Guid("13493c1b-c63e-4f10-83e1-04c516e56637") },
-                    { new Guid("7468e791-5946-494c-8817-4a355c008731"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/2:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_1.jpg", new Guid("b5af1a13-6663-42b5-83d5-083f697e78de") },
-                    { new Guid("786133a8-444b-453f-b40d-c51d799a10ee"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_0.jpg", new Guid("13493c1b-c63e-4f10-83e1-04c516e56637") },
-                    { new Guid("87b286bd-0a30-4668-89d3-ce7c11943aed"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/4:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_3.jpg", new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660") },
-                    { new Guid("8d52f78b-6e3a-4b3a-a851-f9f4a6e5b922"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_0.jpg", new Guid("ae2acdf2-2607-465a-9ac2-42868ed9c2fe") },
-                    { new Guid("959bfd5d-80ad-4dbe-9587-cde0d5298ba6"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/4:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_3.jpg", new Guid("b5af1a13-6663-42b5-83d5-083f697e78de") },
-                    { new Guid("a8e05d80-975f-4353-bcba-51966d4ba527"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/3:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_2.jpg", new Guid("b5af1a13-6663-42b5-83d5-083f697e78de") },
-                    { new Guid("c8e7fce8-5e29-4b8b-8579-635b44695dfa"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/3:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_2.jpg", new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660") },
-                    { new Guid("c91601e7-b274-45b5-a7bf-43dad5b85629"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/2:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_1.jpg", new Guid("7893c986-bec7-4912-b8f3-c8ea924ac660") },
-                    { new Guid("df914184-b5a0-4ca8-9bc6-38d0269ba714"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/1:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_0.jpg", new Guid("39dec039-74ee-4f89-91ca-593a9d868cc4") }
+                    { new Guid("166f1406-6d4c-4026-8dbf-046a580c6c2a"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/2:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_1.jpg", new Guid("72a973e8-9874-4f71-9993-288e2b8aa652") },
+                    { new Guid("3f6f0c87-11a4-495f-8508-9ff61df9f736"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/3:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_2.jpg", new Guid("e5b98d46-47ad-4e92-92d0-479912b49a80") },
+                    { new Guid("410bf016-c2fd-475f-8ee4-86b92aa054f5"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_0.jpg", new Guid("72a973e8-9874-4f71-9993-288e2b8aa652") },
+                    { new Guid("575c845f-fa9b-4ec8-b406-288115acc542"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/3:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_2.jpg", new Guid("2d23265c-86b0-4906-a8e6-bdca192e7303") },
+                    { new Guid("7d691772-26fa-4907-aec9-0c812589def4"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/2:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_1.jpg", new Guid("e5b98d46-47ad-4e92-92d0-479912b49a80") },
+                    { new Guid("7efa70fd-fe9b-43ee-b98e-15ec57352a50"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/4:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_3.jpg", new Guid("75345eb2-421d-40c4-97e0-fa0d1a9d2b42") },
+                    { new Guid("a046d334-f60c-4a21-a0c9-d91f0446fdfe"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/1:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_0.jpg", new Guid("2d23265c-86b0-4906-a8e6-bdca192e7303") },
+                    { new Guid("ac75e071-178d-4ef4-ae54-b2a867c5eeca"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/2:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_1.jpg", new Guid("75345eb2-421d-40c4-97e0-fa0d1a9d2b42") },
+                    { new Guid("b113cdbf-2b0b-4e9b-9b26-8b9f1c312f3d"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/237f1559-8d57-4502-a8cd-bcaf40029321/segments/1:4:1/Flux_Dev_A_colorful_and_vibrant_illustration_of_a_dinosaur_plu_0.jpg", new Guid("75345eb2-421d-40c4-97e0-fa0d1a9d2b42") },
+                    { new Guid("b49cf28d-7afc-425c-8c5a-8274c4ad43cc"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/114528bd-c0ef-4219-956f-e29c159224fe/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_endearing_classic_teddy_bear_made_e_3.jpg", new Guid("2d23265c-86b0-4906-a8e6-bdca192e7303") },
+                    { new Guid("b4c86e43-d355-4f1b-85ce-bfccbbacc94a"), 2, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/3:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_2.jpg", new Guid("f5a0017b-f892-4765-90cf-442f8e7dcc86") },
+                    { new Guid("c3969b0a-de64-428c-9a74-74ccfe9049aa"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/06c5c23d-5ab7-44ce-9ec4-e857a8078be4/segments/4:4:1/Flux_Dev_A_soft_cuddly_and_adorable_amigurumi_bunny_sits_uprig_3.jpg", new Guid("72a973e8-9874-4f71-9993-288e2b8aa652") },
+                    { new Guid("c485032d-852e-429d-842d-3eac1805596f"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/51b6901d-4b2f-4806-ae6f-bbf0707b2d31/segments/4:4:1/Flux_Dev_A_whimsical_softfocus_illustration_of_an_adorable_oct_3.jpg", new Guid("e5b98d46-47ad-4e92-92d0-479912b49a80") },
+                    { new Guid("eb3be83e-bbcf-477c-a242-aaa968eb52cf"), 3, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/2:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_1.jpg", new Guid("f5a0017b-f892-4765-90cf-442f8e7dcc86") },
+                    { new Guid("ed1fb5de-cf32-4246-bd4a-03029e403a83"), 1, "https://cdn.leonardo.ai/users/ff8f3895-401f-4c98-8ac2-468b47e1f545/generations/46871dcc-53a3-4ae0-994f-c6f35dd47de3/segments/4:4:1/Flux_Dev_A_vibrant_whimsical_illustration_of_a_rainbow_unicorn_3.jpg", new Guid("f5a0017b-f892-4765-90cf-442f8e7dcc86") }
                 });
 
             migrationBuilder.CreateIndex(
